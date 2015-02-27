@@ -41,6 +41,10 @@ namespace NMaier.SimpleDlna
     [ShortArgument('c')]
     public FileInfo CacheFile = null;
 
+    [Argument("name", HelpVar = "name", HelpText = "Friendly name for this server (group)")]
+    [ShortArgument('n')]
+    public string FriendlyName = string.Empty;
+
     [Argument("sort-descending", HelpText = "Sort order; see --list-sort-orders")]
     [ShortArgument('d')]
     [FlagArgument(true)]
@@ -84,6 +88,10 @@ namespace NMaier.SimpleDlna
     [ShortArgument('V')]
     [FlagArgument(true)]
     public bool ShowVersion = false;
+
+    [Argument("no-rescanning", HelpText = "Disable rescanning of locations after first scan")]
+    [FlagArgument(false)]
+    public bool Rescanning = true;
 
     [Argument("ip", HelpText = "Allow only specified IPs", HelpVar = "IP")]
     [ShortArgument('i')]

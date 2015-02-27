@@ -232,8 +232,33 @@ namespace NMaier.SimpleDlna.FileMediaServer
       }
     }
 
+    private bool rescanning = true;
+    public bool Rescanning
+    {
+      get
+      {
+        return rescanning;
+      }
+      set
+      {
+        if (rescanning == value) {
+          return;
+
+        }
+        rescanning = value;
+        if (rescanning) {
+          Rescan();
+        }
+      }
+    }
+
     private void RescanInternal()
     {
+      if (!rescanning) {
+        Debug("Rescanning disabled");
+        return;
+      }
+
       Task.Factory.StartNew(() =>
       {
         if (Changing != null) {
@@ -376,6 +401,7 @@ namespace NMaier.SimpleDlna.FileMediaServer
       if (store != null) {
         store.Dispose();
       }
+      FileStreamCache.Clear();
     }
 
     public IMediaItem GetItem(string id)
